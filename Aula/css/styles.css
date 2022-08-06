@@ -1,0 +1,27 @@
+body{
+    background-color: #dcdbdb;
+    color: #f00;
+}
+
+p{
+    font-size: 20px;
+    color: #f00;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+}
+a{
+    text-decoration: none;
+    background-color: #dcdbdb;
+    color: darkgoldenrod;
+    border: 1px solid darkgoldenrod;
+    font-size: 20px;
+    /* padding: 10px 5px 1px 18px; */
+    /* padding: 10px 5px 1px; */
+    padding: 5px 10px;
+    /* padding: 10px; */
+    border-radius: 5px;
+}
+a:hover{
+    background-color: darkgoldenrod;
+    color: #dcdbdb;
+}
