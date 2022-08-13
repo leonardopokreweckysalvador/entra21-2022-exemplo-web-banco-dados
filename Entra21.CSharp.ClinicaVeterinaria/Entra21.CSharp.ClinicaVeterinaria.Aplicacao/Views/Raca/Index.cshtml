@@ -15,13 +15,13 @@
     <tbody>
         <!-- Lugar dos regitros da tabela-->
 
-        @foreach (var raca in ViewBag["Racas"])
+        @foreach (var raca in ViewBag.Racas)
         {
             <tr>
                 <!-- Linha -->
-                <td>raca.Id</td> <!-- Coluna especifica para body-->
-                <td>raca.Nome</td>
-                <td>raca.Especie</td>
+                <td>@raca.Id</td> <!-- Coluna especifica para body-->
+                <td>@raca.Nome</td>
+                <td>@raca.Especie</td>
             </tr>
         }
 

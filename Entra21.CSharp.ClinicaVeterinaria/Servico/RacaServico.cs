@@ -8,7 +8,7 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico
     // Ou seja, dovera honrar as clausulas definidos na interface(Contrato)
     public class RacaServico : IRacaServico
     {
-        private RacaRepositorio racaRepositorio;
+        private RacaRepositorio _racaRepositorio;
 
         public RacaServico()
         {
@@ -17,7 +17,7 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico
         //Construtor: construir o objeto de RacaServico com o minimo para a correta execucao
         public RacaServico(ClinicaVeterinariaContexto contexto)
         {
-            racaRepositorio = new RacaRepositorio(contexto);
+            _racaRepositorio = new RacaRepositorio(contexto);
         }
 
         public void Cadastrar(string nome, string espece)
@@ -25,13 +25,13 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico
             var raca = new Raca();
             raca.Nome = nome;
             raca.Especie = espece;
-            racaRepositorio.Cadastrar(raca);
+            _racaRepositorio.Cadastrar(raca);
             Console.WriteLine($"Nome: {nome} especie: {espece}");
         }
 
         public List<Raca> ObterTodos()
         {
-            var racasDoBanco = racaRepositorio.ObterTodos();
+            var racasDoBanco = _racaRepositorio.ObterTodos();
 
             return racasDoBanco;
         }
@@ -43,17 +43,17 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico
             raca.Nome = nome.Trim();
             raca.Especie = especie;
 
-            racaRepositorio.Apagar(id);
+            _racaRepositorio.Apagar(id);
         }
 
         public void Apagar(int id)
         {
-            racaRepositorio.Apagar();
+            _racaRepositorio.Apagar();
         }
 
         public Raca ObterPorId(int id)
         {
-            var raca = racaRepositorio.ObterPorId(id);
+            var raca = _racaRepositorio.ObterPorId(id);
 
             return raca;
         }
