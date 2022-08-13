@@ -10,11 +10,16 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico
     {
         private RacaRepositorio racaRepositorio;
 
+        public RacaServico()
+        {
+        }
+
         //Construtor: construir o objeto de RacaServico com o minimo para a correta execucao
         public RacaServico(ClinicaVeterinariaContexto contexto)
         {
             racaRepositorio = new RacaRepositorio(contexto);
         }
+
         public void Cadastrar(string nome, string espece)
         {
             var raca = new Raca();
@@ -23,5 +28,35 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico
             racaRepositorio.Cadastrar(raca);
             Console.WriteLine($"Nome: {nome} especie: {espece}");
         }
+
+        public List<Raca> ObterTodos()
+        {
+            var racasDoBanco = racaRepositorio.ObterTodos();
+
+            return racasDoBanco;
+        }
+
+        public void Alterar(int id, string nome, string especie)
+        {
+            var raca = new Raca();
+            raca.Id = id;
+            raca.Nome = nome.Trim();
+            raca.Especie = especie;
+
+            racaRepositorio.Apagar(id);
+        }
+
+        public void Apagar(int id)
+        {
+            racaRepositorio.Apagar();
+        }
+
+        public Raca ObterPorId(int id)
+        {
+            var raca = racaRepositorio.ObterPorId(id);
+
+            return raca;
+        }
     }
 }
+

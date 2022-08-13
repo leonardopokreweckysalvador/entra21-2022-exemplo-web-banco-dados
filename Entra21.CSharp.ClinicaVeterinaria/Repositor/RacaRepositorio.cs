@@ -6,7 +6,7 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Repositorio
     public class RacaRepositorio : IRacaRepositorio
     {
         public readonly ClinicaVeterinariaContexto _contexto;
-
+        
         public RacaRepositorio(ClinicaVeterinariaContexto contexto)
         {
             _contexto = contexto;
@@ -17,5 +17,40 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Repositorio
             _contexto.Racas.Add(raca);
             _contexto.SaveChanges();
         }
+
+        public List<Raca> ObterTodos()
+        {
+            // Buscar todos os registros de raças
+            // SELECT * FROM racas
+
+            var racas = _contexto.Racas.ToList();
+            return racas;
+
+        }
+        
+        public void Apagar(int id)
+        {
+            var raca = _contexto.Racas.Where(x => x.Id == id).FirstOrDefault();
+
+            _contexto.Racas.Remove(raca);
+        }
+
+        public Raca ObterPorId(int id)
+        {
+            var raca = _contexto.Racas.Where(x => x.Id == id).FirstOrDefault();   
+
+            return raca;
+        }
+
+        public void Atualizar(Raca racaParaAlterar)
+        {
+            var raca = _contexto.Racas.Where(x => x.id == racaParaAlterar.Id).FirstOrDefault();
+
+            raca.Nome = racaParaAlterar.Nome;
+            raca.Especie = racaParaAlterar.Especie;
+
+            _contexto.Update(raca);
+        }
     }
 }
+
