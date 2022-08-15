@@ -48,7 +48,7 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico
 
         public void Apagar(int id)
         {
-            _racaRepositorio.Apagar();
+            _racaRepositorio.Apagar(id);
         }
 
         public Raca ObterPorId(int id)
