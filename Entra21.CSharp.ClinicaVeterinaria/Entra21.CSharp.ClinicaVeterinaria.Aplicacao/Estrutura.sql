@@ -5,3 +5,4 @@
 
 SELECT * FROM racas;
 
+INSERT INTO racas(nome, especie) VALUES ('fsdfgsdg','egdfgsfdgf')
