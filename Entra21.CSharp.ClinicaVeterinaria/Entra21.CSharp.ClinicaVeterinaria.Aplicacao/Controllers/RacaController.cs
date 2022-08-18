@@ -1,6 +1,7 @@
 ﻿using Entra21.CSharp.ClinicaVeterinaria.Repositorio.BancoDados;
 using Entra21.CSharp.ClinicaVeterinaria.Repositorio.Enum;
 using Entra21.CSharp.ClinicaVeterinaria.Servico;
+using Entra21.CSharp.ClinicaVeterinaria.Servico.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
     public class RacaController : Controller
     {
 
-        private readonly RacaServico _racaService;
+        private readonly IRacaServico _racaService;
 
 
         // Contrutor: objetivo contruir o objeto de RacaController,
@@ -26,8 +27,8 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [Route("/raca")]
-        [HttpGet]
+        //[Route("/raca")]
+        [HttpGet("/raca")]
         /// Endpoist que  permite listar todas as raças
         /// <returns> Retorna a página hyml com as raças </returns>>
         public IActionResult ObterTodos()
@@ -40,30 +41,34 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
             return View("Index");
         }
 
-        [Route("/raca/cadastrar")]
-        [HttpGet]
+        private List<string> ObterEspecies()
+        {
+            return Enum.GetNames<Especie>().OrderBy(x => x).ToList();
+        }
+
+        //[Route("/raca/cadastrar")]
+        [HttpGet("/raca/cadastrar")]
         public IActionResult Cadastrar()
         {
             var especies = ObterEspecies();
             ViewBag.Especies = especies;
-            
+
             return View();
         }
 
-        [Route("/raca/registrar")]
-        [HttpGet]
+        //[Route("/raca/cadastrar")]
+        [HttpPost("/raca/cadastrar")]
 
-        public IActionResult Registrar(
-            [FromQuery]string nome,
-            [FromQuery] string especie)
+        public IActionResult Cadastrar(
+            [FromForm]RacaCadastrarViewModel racaCadastrarViewModel)
         {
-            _racaService.Cadastrar(nome, especie);
-            
+            _racaService.Cadastrar(racaCadastrarViewModel);
+
             return RedirectToAction("Index");
         }
 
-        [Route("/raca/apagar")]
-        [HttpGet]
+        //[Route("/raca/apagar")]
+        [HttpGet("/raca/apagar")]
 
         public IActionResult Apagar([FromQuery] int id)
         {
@@ -72,8 +77,8 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        [Route("/raca/editar")]
+        [HttpGet("/raca/editar")]
+        //[Route("/raca/editar")]
 
         public IActionResult Editar([FromQuery] int id)
         {
@@ -86,19 +91,15 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
             return View("Editar");
         }
 
-        private List<string> ObterEspecies()
+        [HttpPost("/raca/editar")]
+        //[Route("/raca/editar")]
+        public IActionResult Editar(
+            [FromForm] RacaEditarViewModel racaEditarViewModel)
         {
-            return Enum.GetNames<Especie>().OrderBy(x => x).ToList();
-        }
+            _racaService.Editar(racaEditarViewModel);
 
-        public IActionResult Alterar(
-            [FromQuery] int id, 
-            [FromQuery] string nome, 
-            [FromQuery] string especie)
-        {
-            _racaService.Alterar(id, nome, especie);
-            
             return RedirectToAction("Index");
         }
+
     }
 }
