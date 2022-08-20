@@ -65,7 +65,7 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
         public IActionResult Cadastrar(
             [FromForm]RacaCadastrarViewModel racaCadastrarViewModel)
         {
-            // Valida o parametro recebido na action se é ivalido != false 
+            
             if (!ModelState.IsValid)
             {
                 ViewBag.Especies = ObterEspecies();
