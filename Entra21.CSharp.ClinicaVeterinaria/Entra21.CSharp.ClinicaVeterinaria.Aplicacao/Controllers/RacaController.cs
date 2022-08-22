@@ -35,10 +35,8 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
         {
             var racas = _racaService.ObterTodos();
 
-            ViewBag.Racas = racas;
-
             // Passar informacao do c# para o HTML
-            return View("Index");
+            return View("Index", racas);
         }
 
         private List<string> ObterEspecies()
